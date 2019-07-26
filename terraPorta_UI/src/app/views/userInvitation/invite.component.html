@@ -1,0 +1,47 @@
+<div class="app flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <p-messages [(value)]="msgs"></p-messages>
+        <div class="card-group">
+          <div class="card p-4">
+            <div class="card-body">
+              <form id="login-form" name='addUserForm' (ngSubmit)="onSubmit()" #addUserForm="ngForm" novalidate>
+                  <div class="heading">
+                      <h2>Sign Up and Join to Organization</h2>
+                  </div>
+                  <div class="content">
+                      <div class="form-group" [ngClass]="{'has-success': !username.errors && !username.pristine, 'has-danger': username.errors && !username.pristine}">
+                        <label class="form-col-form-label" for="username">Username</label>
+                        <input type="text" class="form-control" id="username" [(ngModel)]="formData.username" name="username" placeholder="Enter username"
+                        [ngClass]="{'form-control-success': !username.errors, 'is-invalid': username.errors}" #username="ngModel" required>
+                        <p *ngIf="username.errors?.required && !username.pristine" class="form-control-feedback">This field is required!</p>
+                      </div>
+                      <div class="form-group" [ngClass]="{'has-success': !password.errors && !password.pristine, 'has-danger': password.errors && !password.pristine}">
+                        <label class="form-col-form-label" for="password">Password</label>
+                        <input type="password" class="form-control" id="password" [(ngModel)]="formData.password" name="password" placeholder="Enter password"
+                        [ngClass]="{'form-control-success': !password.errors, 'is-invalid': password.errors}" #password="ngModel" required>
+                        <p *ngIf="password.errors?.required && !password.pristine" class="form-control-feedback">This field is required!</p>
+                      </div>
+                      <!-- <div class="form-group" [ngClass]="{'has-success': !email.errors && !email.pristine, 'has-danger': email.errors && !email.pristine}">
+                        <label class="form-col-form-label" for="email">Email</label>
+                        <input type="email" class="form-control" id="email" [(ngModel)]="formData.email" name="email" placeholder="Enter your email"
+                        [ngClass]="{'form-control-success': !email.errors, 'is-invalid': email.errors}" #email="ngModel" required >
+                        <p *ngIf="email.errors?.required && !email.pristine" class="form-control-feedback">This field is required!</p>
+                      </div> -->
+
+                      <div class="form-group">
+                          <button type="submit" class="btn btn-block btn-primary" [disabled]="!addUserForm.form.valid || addUserForm.form.pristine">Sign Up</button>
+                      </div>
+                      <!-- <div class="form-group text-right">
+                          <a href="" [routerLink]="['/login']">Already registred? Sign in!</a>
+                      </div> -->
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

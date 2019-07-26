@@ -1,0 +1,15 @@
+version: '2'
+
+networks:
+    terraPorta:
+
+services:
+    tp_web:
+        build: .
+        container_name: tp_web
+        ports:
+            - "8081:80"
+        networks:
+            terraPorta:
+                aliases:
+                    - tp_web

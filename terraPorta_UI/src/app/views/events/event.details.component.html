@@ -1,0 +1,176 @@
+<p-growl [value]="msgs" [life]=5000></p-growl>
+<p-confirmDialog></p-confirmDialog>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{formData.event}} Details</strong>
+          <button [hidden]="!currentUser.is_superuser" (click)="deleteConfirm()" id='delButton' class="btn btn-outline-danger"><i class="fa fa-trash-o fa-fw fa-sm"></i></button>
+        </div>
+        <div class="card-body">
+          <h6 class='created_at'>Created: {{formData.created}}</h6>
+          <div class="form-group">
+            <markdown-to-html [data]="formData.content"></markdown-to-html>
+          </div>
+          <br>
+          <div class="form-group">
+              <div class="row">
+                  <div class="col-sm-3" [hidden]="!currentUser.is_superuser">
+                      <button (click)="eventUpdateModal.show()"  class="btn btn-md btn-primary"><i class="fa fa-dot-circle-o"></i> Update</button>
+                  </div>
+              </div>
+          </div>
+          <div class="simple-subscription-form" [hidden]="currentUser.is_superuser">
+            <div>
+              <form name="subscribeForm" #subscribeForm="ngForm">
+                <h4>Subscribe</h4>
+                <p>Receive updates and latest news direct from our team. Simply enter your email below :</p>
+                <div class="input-group">
+                  <select
+                    type="hook_type"
+                    name="hook_type"
+                    id="hook_type"
+                    class="form-control"
+                    [(ngModel)]="hook_type"
+                    required
+                  >
+                    <option>Email</option>
+                    <option>Url</option>
+
+                  </select>
+                  <input type="email" name="subUrl" id="subUrl" class="form-control" [(ngModel)]="subUrl" placeholder={{hook_type_placeholder[hook_type]}} required>
+                  <button type="submit" class="btn btn-md btn-warning" (click)="eventMapModal.show()">Sign up now</button>
+                </div>
+              </form>
+            </div>
+            <!-- <div [hidden]='!formData.user_subscribed'>
+              <h4>You are subscribed!</h4>
+              <div class="input-group">
+                <button (click)="unsubscribe()"  class="btn btn-md btn-danger"> Unsubscribe</button>
+                <p>&nbsp;&nbsp;If you no longer want to receive information.</p>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div>
+
+  <div bsModal #eventUpdateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div>
+    <div class="modal-content col-lg-8" style='margin: 1.7rem auto;'>
+      <div class="modal-header">
+        <h4 class="modal-title">Update {{formData.event}}</h4>
+        <button type="button" class="close" (click)="eventUpdateModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class='col-md-12'>
+        <form name="updateEventForm" #updateEventForm="ngForm" (ngSubmit)="updateEvent()">
+          <div class="modal-body">
+            <div class="form-group" [ngClass]="{'has-success': !event.errors && !event.pristine, 'has-danger': event.errors && !event.pristine}">
+              <label class="form-col-form-label" for="event">Event name</label>
+              <input type="text" class="form-control" id="event" [(ngModel)]="formData.event" name="event"
+              [ngClass]="{'form-control-success': !event.errors, 'is-invalid': event.errors}" #event="ngModel">
+              <p *ngIf="event.errors?.required && !event.pristine" class="form-control-feedback">This field is required!</p>
+            </div>
+            <div class="form-group" [ngClass]="{'has-success': !serviceid.errors && !serviceid.pristine, 'has-danger': serviceid.errors && !serviceid.pristine}">
+            <label class="form-col-form-label" for="service">Event Service</label>
+            <ng-select
+              [items]="event_services"
+              class="form-control"
+              id="serviceid"
+              [(ngModel)]="formData.service_id"
+              name="serviceid"
+              required
+              #serviceid="ngModel">
+
+            </ng-select>
+            <p *ngIf="serviceid.errors?.required && !serviceid.pristine" class="form-control-feedback">This field is required!</p>
+            </div>
+            <div class="form-group" hidden>
+              <label class="form-col-form-label" for="owner">Owner</label>
+              <input type="text" class="form-control" id="owner" [(ngModel)]="formData.owner" #owner="ngModel" name="owner">
+            </div>
+            <div class="form-group">
+              <label class="form-col-form-label" for="created">Created at</label>
+              <input type="text" class="form-control" id="created" [(ngModel)]="formData.created" #created="ngModel" name="created" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-col-form-label" for="content">Short Description</label>
+              <!-- <p-editor [(ngModel)]="formData.short_description" [style]="{'height':'320px'}" [ngModelOptions]="{standalone: true}"></p-editor> -->
+              <textarea class="form-control" id="short_description" [(ngModel)]="formData.short_description" rows="4"  #short_description="ngModel" name="short_description"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-col-form-label" for="state">Description</label>
+              <angular-markdown-editor
+                textareaId="editor1" rows="20"
+                name="markdownText" [(ngModel)]="formData.content"
+                [options]="editorOptions">
+              </angular-markdown-editor>
+            </div>
+            <br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="eventUpdateModal.hide()">Close</button>
+            <button type="submit" (click)="eventUpdateModal.hide()" class="btn btn-md btn-primary"><i class="fa fa-dot-circle-o"></i> Update</button>
+          </div>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #eventMapModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div>
+    <div class="modal-content col-lg-8" style='margin: 1.7rem auto;'>
+      <div class="modal-header">
+        <h4 class="modal-title">Add coordinates for event {{formData.event}}</h4>
+        <button type="button" class="close" (click)="eventMapModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class='col-md-12'>
+        <form name="updateEventForm" #updateEventForm="ngForm" (ngSubmit)="subscribeEvent()">
+          <div class="modal-body">
+            <div class='row'>
+              <div class='col-md-8'>
+                <div #gmap style="width:100%;height:500px"></div>
+              </div>
+              <div class='col-md-4'>
+                <form #form="ngForm" (ngSubmit)="setCenter()" ac>
+                  <div class="form-group">
+                    <label>Latitude</label>
+                    <input type="number" class="form-control" name="latitude" [(ngModel)]="latitude" placeholder="Enter latitude"  (keyup)="setCenter()" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Longitude</label>
+                    <input type="number" class="form-control" name="longitude" [(ngModel)]="longitude" placeholder="Enter longitude" (keyup)="setCenter()" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Radius</label>
+                    <input type="number" class="form-control" name="radius" [(ngModel)]="radius" (keyup)="setCenter()" placeholder="Enter radius">
+                  </div>
+                  <!-- <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Go</button> -->
+                  <br><br><br>
+                  <div class="form-group" *ngIf="formData.service_id==='MoistureService'">
+                    <label>Min soil moisture</label>
+                    <input type="number" class="form-control" name="minMoisture" [(ngModel)]="minMoisture">
+                  </div>
+                  <div class="form-group" *ngIf="formData.service_id==='MoistureService'">
+                    <label>Max soil moisture</label>
+                    <input type="number" class="form-control" name="maxMoisture" [(ngModel)]="maxMoisture">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="eventMapModal.hide()">Close</button>
+            <button type="submit" (click)="eventMapModal.hide()" class="btn btn-md btn-primary" [disabled]="form.invalid"><i class="fa fa-dot-circle-o"></i> Save</button>
+          </div>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

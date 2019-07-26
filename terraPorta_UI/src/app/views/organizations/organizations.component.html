@@ -1,0 +1,37 @@
+<p-growl [value]="msgs" [life]=5000></p-growl>
+<p-confirmDialog></p-confirmDialog>
+  <div class="row">
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <h4 class='subheading'>Organizations</h4>
+        </div>
+        <div class="card-body table-responsive">
+          <div class="ui-widget-header" style="padding:5px 10px;border-bottom: 0 none">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input #gb type="text" pInputText size="50" placeholder="Search...">
+          </div>
+          <p-dataTable [value]="orgs" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt ortMode="multiple" [rowsPerPageOptions]="[10,20,50]">
+             <p-column field="id" header="#" [sortable]="true"></p-column>
+              <p-column field="name" header="Name" [sortable]="true"></p-column>
+              <p-column field="location" header="Location" [sortable]="true"></p-column>
+              <p-column field="state" header="State" [sortable]="true"></p-column>
+              <p-column field="active" header="Active" [sortable]="true"></p-column>
+              <p-column styleClass="col-button">
+                  <ng-template pTemplate="header">
+                      <span class="ui-column-title ng-star-inserted">Options</span>
+                  </ng-template>
+                  <ng-template let-org="rowData" pTemplate="body">
+                    <button type="button" pButton (click)="details(org.id)" class="primary-button" icon="fa fa-edit"></button>
+                    <button [hidden]="!currentUser.is_superuser" type="button" (click)="showConfirm(org)" pButton class="delete-button" icon="fa fa-trash-o"></button>
+                  </ng-template>
+              </p-column>
+          </p-dataTable>
+          <br>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<br><br>

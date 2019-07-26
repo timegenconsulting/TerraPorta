@@ -1,0 +1,51 @@
+<div class="container">
+<p-growl [value]="msgs" [life]=5000></p-growl>
+<p-confirmDialog></p-confirmDialog>
+  <div class="row justify-content-center">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Billing Plan Detail</strong>
+          <button [hidden]="!currentUser.is_superuser" (click)="deletePlanConfirm()" id='delButton' class="btn btn-outline-danger"><i class="fa fa-trash-o fa-fw fa-sm"></i></button>
+        </div>
+        <div class="card-body">
+          <form name="updateOrgForm" (ngSubmit)="updateBillingPlan()">
+            <div class="form-group">
+              <label class="form-col-form-label" for="days">Days</label>
+              <input type="number" class="form-control" id="days" [(ngModel)]="formData.days" name="days" #days="ngModel">
+            </div>
+            <div class="form-group">
+              <label class="form-col-form-label" for="price">Price</label>
+              <input type="number" class="form-control" id="price" [(ngModel)]="formData.price" #owner="ngModel" name="price">
+            </div>
+
+            <div class="form-group" >
+            <label class="form-col-form-label" for="service">Provider</label>
+            <ng-select
+              [items]="providers"
+              class="form-control"
+              id="provider"
+              [(ngModel)]="formData.provider_id"
+              name="provider"
+              required
+              #provider="ngModel">
+            </ng-select>
+            </div>
+            <div class="form-group">
+              <label class="form-col-form-label" for="description">Description</label>
+              <input type="text" class="form-control" id="description" [(ngModel)]="formData.description" #description="ngModel" name="description">
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Update</button>
+                    </div>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div>
+</div>

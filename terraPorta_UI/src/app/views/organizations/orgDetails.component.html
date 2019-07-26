@@ -1,0 +1,118 @@
+<p-growl [value]="msgs" [life]=5000></p-growl>
+  <div class='row' style="margin-left: 0px;">
+    <button (click)="openBilling()" class="btn btn-primary org_billing_button">Prolong Subscription to Events</button>
+    <h5 *ngIf="formData.billing_is_active" style="margin-left: 25%; padding-bottom: 1rem; color: #20a8d8">The subscription lasts up to {{formData.left_days}}</h5>
+    <h5 *ngIf="!formData.billing_is_active && formData.left_days !== '-'" style="margin-left: 25%; padding-bottom: 1rem; color: #f86c6b">The subscription has expired {{formData.left_days}}</h5>
+    <h5 *ngIf="!formData.billing_is_active && formData.left_days === '-'" style="margin-left: 25%; padding-bottom: 1rem; color: #f86c6b">You still do not have a subscription to events</h5>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Organization Details</strong>
+          <!-- <button [hidden]="!currentUser.is_owner" (click)="deleteOrg()" id='delButton' class="btn btn-outline-danger"><i class="fa fa-trash-o fa-fw fa-sm"></i></button> -->
+        </div>
+        <div class="card-body">
+          <form name="updateOrgForm" (ngSubmit)="update()">
+            <div class="form-group" [ngClass]="{'has-success': !name.errors && !name.pristine, 'has-danger': name.errors && !name.pristine}">
+              <label class="form-col-form-label" for="name">Organization name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="formData.name" name="name"
+              [ngClass]="{'form-control-success': !name.errors, 'is-invalid': name.errors}" #name="ngModel" readonly [disabled]="!currentUser.is_owner">
+              <p *ngIf="name.errors?.required && !name.pristine" class="form-control-feedback">This field is required!</p>
+            </div>
+            <div class="form-group" hidden>
+              <label class="form-col-form-label" for="owner">Owner</label>
+              <input type="text" class="form-control" id="owner" [(ngModel)]="formData.owner" #owner="ngModel" name="owner">
+            </div>
+            <div class="form-group">
+              <label class="form-col-form-label" for="owner_name">Owner</label>
+              <input type="text" class="form-control" id="owner_name" name="owner_name" value='{{formData.owner_name}}' readonly [disabled]="!currentUser.is_owner">
+            </div>
+            <div class="form-group">
+              <label class="form-col-form-label" for="location">Location</label>
+              <input type="text" class="form-control" id="location" [(ngModel)]="formData.location" #location="ngModel" name="location" [disabled]="!currentUser.is_owner">
+            </div>
+            <div class="form-group">
+              <label class="form-col-form-label" for="state">State</label>
+              <input type="text" class="form-control" id="state" [(ngModel)]="formData.state" #state="ngModel" name="state" [disabled]="!currentUser.is_owner">
+            </div>
+            <div class="form-group">
+              <label class="form-col-form-label" for="requests_no">Requests No.</label>
+              <input type="text" class="form-control" id="requests_no" [(ngModel)]="formData.requests_no" #state="ngModel" name="requests_no" readonly [disabled]="!currentUser.is_owner">
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-md btn-primary"><i class="fa fa-dot-circle-o"></i> Update</button>
+                    </div>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div><!--/.col-->
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class='subheading'>Members of the organization</h4>
+        </div>
+        <div class="card-body table-responsive">
+          <div class="ui-widget-header" style="padding:5px 10px;border-bottom: 0 none">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input #gb type="text" pInputText size="50" placeholder="Search...">
+          </div>
+          <p-dataTable [value]="formData.members_list" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt ortMode="multiple" [rowsPerPageOptions]="[10,20,50]">
+              <!-- <p-column field="id" header="#" [sortable]="true"></p-column> -->
+              <p-column field="username" header="Username" [sortable]="true"></p-column>
+              <p-column field="email" header="Email" [sortable]="true"></p-column>
+              <p-column field="first_name" header="First Name"></p-column>
+              <p-column field="last_name" header="Last Name"></p-column>
+              <p-column styleClass="col-button"  [style]="{'width':'60px'}">
+                  <ng-template pTemplate="header">
+                      <span class="ui-column-title ng-star-inserted">Details</span>
+                  </ng-template>
+                  <ng-template let-member="rowData" pTemplate="body">
+                    <button type="button" pButton (click)="userDetail(member)" class="primary-button" icon="fa fa-edit"></button>
+                  </ng-template>
+              </p-column>
+          </p-dataTable>
+          <div>
+            <br>
+            <button (click)="showDialog()" class="btn btn-outline-primary"><i class="fa fa-user-plus fa-fw fa-lg"></i>&nbsp;invite User</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h4 class='subheading'>Billing History</h4>
+        </div>
+        <div class="card-body table-responsive">
+          <div class="ui-widget-header" style="padding:5px 10px;border-bottom: 0 none">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input #bh type="text" pInputText size="50" placeholder="Search...">
+          </div>
+          <p-dataTable [value]="formData.billing_history" [rows]="10" [paginator]="true" [globalFilter]="bh" #dt ortMode="multiple" [rowsPerPageOptions]="[10,20,50]">
+              <p-column field="id" header="#" [sortable]="true"></p-column>
+              <p-column field="amount" header="Amount" [sortable]="true"></p-column>
+              <p-column field="provider" header="Provider" [sortable]="true"></p-column>
+              <p-column field="status" header="Status" [sortable]="true"></p-column>
+              <p-column field="order_id" header="Order ID"></p-column>
+              <p-column field="created" header="Date"></p-column>
+          </p-dataTable>
+          <br>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div>
+
+<p-dialog header="Invite User in organization - {{formData.name}}" [(visible)]="display" [modal]="true" [responsive]="true" [width]="550" [minWidth]="300" [minY]="170">
+    <div class="form-group">
+      <label class="form-col-form-label" for="email">Email</label>
+      <input type="email" class="form-control" id="email" #email name="email">
+    </div>
+    <p-footer>
+        <button type="reset" class="btn btn-sm btn-primary" icon="fa-check" (click)="inviteUsers(formData.id, email.value)">Invite</button>
+        <button type="button" class="btn btn-sm btn-default" icon="fa-close" (click)="display=false">Close</button>
+    </p-footer>
+</p-dialog>

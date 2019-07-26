@@ -1,0 +1,113 @@
+<p-growl [value]="msgs" [life]=5000></p-growl>
+<p-confirmDialog></p-confirmDialog>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class='subheading'>Events</h4>
+        </div>
+        <div class="card-body table-responsive">
+          <div class="ui-widget-header" style="padding:5px 10px;border-bottom: 0 none">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input #gb type="text" pInputText size="50" placeholder="Search...">
+          </div>
+          <p-dataTable [value]="events" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt ortMode="multiple" [rowsPerPageOptions]="[10,20,50]">
+              <p-column field="event" header="Name" [sortable]="true"></p-column>
+              <p-column field="created" header="Created at" [sortable]="true"></p-column>
+              <p-column field="short_description" header="Description"></p-column>
+              <p-column styleClass="col-button">
+                  <ng-template pTemplate="header">
+                      <span class="ui-column-title ng-star-inserted">Options</span>
+                  </ng-template>
+                  <ng-template let-event="rowData" pTemplate="body">
+                    <button type="button" pButton (click)="details(event.id)" class="primary-button" icon="fa fa-edit"></button>
+                    <button [hidden]="!currentUser.is_superuser" type="button" (click)="deleteConfirm(event)" pButton class="delete-button" icon="fa fa-trash-o"></button>
+                  </ng-template>
+              </p-column>
+          </p-dataTable>
+          <div>
+            <br>
+            <button [hidden]="!currentUser.is_superuser" (click)="eventModal.show()" class="btn btn-outline-primary"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;Add New Event</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h4 class='subheading'>Subscribed</h4>
+        </div>
+        <div class="card-body table-responsive">
+          <div class="ui-widget-header" style="padding:5px 10px;border-bottom: 0 none">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input #gbf type="text" pInputText size="50" placeholder="Search...">
+          </div>
+          <p-dataTable [value]="subscribed" [rows]="10" [paginator]="true" [globalFilter]="gbf" #dt ortMode="multiple">
+              <p-column field="event" header="Event Name" [sortable]="true"></p-column>
+              <p-column field="org" header="Organization" [sortable]="true"></p-column>
+              <p-column field="user" header="User" [sortable]="true"></p-column>
+              <p-column field="hook_link" header="Subs. link" styleClass="short_text"></p-column>
+              <p-column styleClass="col-button">
+                  <ng-template pTemplate="header">
+                      <span class="ui-column-title ng-star-inserted">Options</span>
+                  </ng-template>
+                  <ng-template let-event="rowData" pTemplate="body">
+                    <button type="button" (click)="unsubscribeEvent(event)" class="btn btn-outline-danger" icon="fa fa-edit">Unsubscribe</button>
+                  </ng-template>
+              </p-column>
+          </p-dataTable>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div bsModal #eventModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div>
+    <div class="modal-content col-lg-8" style='margin: 1.7rem auto;'>
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Event</h4>
+        <button type="button" class="close" (click)="eventModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form name="addEventForm" #addEventForm="ngForm" (ngSubmit)="addEvent()">
+        <div class="modal-body">
+          <div class="form-group" [ngClass]="{'has-success': !event.errors && !event.pristine, 'has-danger': event.errors && !event.pristine}">
+            <label class="form-col-form-label" for="event">Event Name</label>
+            <input type="text" class="form-control" id="event" [(ngModel)]="formData.event" name="event" required #event="ngModel">
+            <p *ngIf="event.errors?.required && !event.pristine" class="form-control-feedback">This field is required!</p>
+          </div>
+          <div class="form-group" [ngClass]="{'has-success': !serviceid.errors && !serviceid.pristine, 'has-danger': serviceid.errors && !serviceid.pristine}">
+            <label class="form-col-form-label" for="serviceid">Event Service</label>
+            <ng-select
+              [items]="event_services"
+              class="form-control"
+              id="serviceid"
+              [(ngModel)]="formData.service_id"
+              name="serviceid"
+              required
+              #serviceid="ngModel">
+            </ng-select>
+            <p *ngIf="serviceid.errors?.required && !serviceid.pristine" class="form-control-feedback">This field is required!</p>
+          </div>
+          <div class="form-group">
+            <label class="form-col-form-label" for="content">Short Description</label>
+            <textarea [(ngModel)]="formData.short_description" class="form-control" id="short_description" rows="4" name="short_description" required #short_description="ngModel"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-col-form-label" for="content">Description</label>
+            <angular-markdown-editor
+                textareaId="editor1" rows="20"
+                name="markdownText" [(ngModel)]="formData.content"
+                [options]="editorOptions">
+              </angular-markdown-editor>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="eventModal.hide()">Close</button>
+          <button type="submit" (click)="eventModal.hide()" [disabled]="!addEventForm.form.valid || addEventForm.form.pristine" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

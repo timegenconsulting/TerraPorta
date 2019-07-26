@@ -1,0 +1,55 @@
+
+<p-growl [value]="msgs" [life]=5000></p-growl>
+<div class="row">
+    <div class="col-lg-4" *ngFor='let plan of defaultData.plans'>
+      <div class="card">
+        <!-- <div class="card-header">
+          <strong>{{plan.description}} Billing</strong>
+        </div> -->
+        <div>
+          <div class="billing_descr">
+            <strong>{{plan.description}} ({{plan.days}} days) subscription to events</strong>
+            <div class="billing_descr billing_price">
+              <span *ngIf="plan.provider_id === 'Stripe'">$</span>
+              {{plan.price}}
+              <span *ngIf="plan.provider_id === 'IOTA'">IOTA</span>
+            </div>
+          </div>
+          <br>
+          <div class="card-body">
+            <button (click)="showDialog(plan)" [hidden]="plan.id == 0" class="btn btn-block btn-primary">
+              <strong>Buy Now for
+                <span *ngIf="plan.provider_id === 'Stripe'">$</span>
+                {{plan.price}}
+                <span *ngIf="plan.provider_id === 'IOTA'">IOTA</span>
+              </strong>
+
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<p-dialog header="Billing for {{plan.description}}" [(visible)]="billingDisplay" [modal]="true" [responsive]="true" [width]="550" [minWidth]="300" [minY]="170">
+    <form novalidate (ngSubmit)="buy(plan)" [formGroup]="stripeData">
+      <label class="billing_label">Enter card number</label>
+      <hr>
+      <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+      <hr>
+      <p-footer>
+          <button type="submit" class="btn btn-md btn-primary"><strong>Buy Now for ${{plan.price}}</strong></button>
+          <button type="button" class="btn btn-md btn-default" icon="fa-close" (click)="billingDisplay=false">Close</button>
+      </p-footer>
+    </form>
+</p-dialog>
+
+<p-dialog header="Success!" [(visible)]="successDisplay" [closable]="false" [modal]="true" [responsive]="true" [width]="550" [minWidth]="300" [minY]="170">
+   <h5 style="color: #28a745">Successfully completed subscription for events!</h5>
+    <p-footer>
+        <button type="button" class="btn btn-md btn-default" icon="fa-close" (click)="successDisplay=false;redirectToEvents()">Close</button>
+    </p-footer>
+</p-dialog>
+
+<div id="delion-payment-container"></div>
+

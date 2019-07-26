@@ -1,0 +1,84 @@
+<p-growl [value]="msgs" [life]=5000></p-growl>
+<p-confirmDialog></p-confirmDialog>
+  <div class="row">
+    <div class="col-lg-6 offset-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h4 class='subheading'>Billing Plan</h4>
+        </div>
+        <div class="card-body table-responsive">
+          <div class="ui-widget-header" style="padding:5px 10px;border-bottom: 0 none">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input #gb type="text" pInputText size="50" placeholder="Search...">
+          </div>
+          <p-dataTable [value]="plans" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt ortMode="multiple" [rowsPerPageOptions]="[10,20,50]">
+              <p-column field="days" header="Days" [sortable]="true"></p-column>
+              <p-column field="price" header="Price" [sortable]="true"></p-column>
+              <p-column field="description" header="Description"></p-column>
+              <p-column styleClass="col-button">
+                  <ng-template pTemplate="header">
+                      <span class="ui-column-title ng-star-inserted">Options</span>
+                  </ng-template>
+                  <ng-template let-plan="rowData" pTemplate="body">
+                    <button type="button" pButton (click)="details(plan.id)" class="primary-button" icon="fa fa-edit"></button>
+                    <button type="button" (click)="deleteConfirm(plan)" pButton class="delete-button" icon="fa fa-trash-o"></button>
+                  </ng-template>
+              </p-column>
+          </p-dataTable>
+          <div>
+            <br>
+            <button (click)="billingPlan.show()" class="btn btn-outline-primary"><i class="fa fa-plus fa-fw fa-lg"></i>&nbsp;Add New Plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div bsModal #billingPlan="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div>
+    <div class="modal-content col-md-3" style='margin: 1.7rem auto;'>
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Plan</h4>
+        <button type="button" class="close" (click)="billingPlan.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form name="billingPlanForm" #billingPlanForm="ngForm" (ngSubmit)="addPlan()">
+        <div class="modal-body">
+          <div class="form-group" [ngClass]="{'has-success': !days.errors && !days.pristine, 'has-danger': days.errors && !days.pristine}">
+            <label class="form-col-form-label" for="days">Days</label>
+            <input type="number" class="form-control" id="days" [(ngModel)]="formData.days" name="days" required #days="ngModel">
+            <p *ngIf="days.errors?.required && !days.pristine" class="form-control-feedback">This field is required!</p>
+          </div>
+          <div class="form-group" [ngClass]="{'has-success': !price.errors && !price.pristine, 'has-danger': price.errors && !price.pristine}">
+            <label class="form-col-form-label" for="price">Price</label>
+            <input type="number" class="form-control" id="price" [(ngModel)]="formData.price" name="price" required #price="ngModel">
+            <p *ngIf="price.errors?.required && !price.pristine" class="form-control-feedback">This field is required!</p>
+          </div>
+          <div class="form-group" [ngClass]="{'has-success': !provider.errors && !provider.pristine, 'has-danger': provider.errors && !provider.pristine}">
+            <label class="form-col-form-label" for="service">Provider</label>
+            <ng-select
+              [items]="providers"
+              class="form-control"
+              id="provider"
+              [(ngModel)]="formData.provider_id"
+              name="provider"
+              required
+              #provider="ngModel">
+            </ng-select>
+            <p *ngIf="provider.errors?.required && !provider.pristine" class="form-control-feedback">This field is required!</p>
+            </div>
+          <div class="form-group">
+            <label class="form-col-form-label" for="content">Description</label>
+            <input type="text" class="form-control" id="description" [(ngModel)]="formData.description" name="description" required #description="ngModel">
+            <p *ngIf="description.errors?.required && !description.pristine" class="form-control-feedback">This field is required!</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="billingPlan.hide()">Close</button>
+          <button type="submit" (click)="billingPlan.hide()" [disabled]="!billingPlanForm.form.valid || billingPlanForm.form.pristine" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

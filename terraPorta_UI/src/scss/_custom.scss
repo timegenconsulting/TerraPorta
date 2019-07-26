@@ -1,0 +1,122 @@
+
+.short_text {
+  width:200px;
+  max-width:200px;
+  min-width:200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form-control[readonly]{
+  background-color: #ffff;
+}
+
+.ui-button.delete-button {
+   color: #f86c6b;
+   background-color: transparent;
+   background-image: none;
+   border-color: #f86c6b;
+   font-size: 1.33333333em;
+   &:hover {
+   	  border: 1px solid #f86c6b;
+      outline: 0 none;
+      background: #f86c6b;
+      color:#ffffff;
+    }
+    &:enabled:hover {
+      border: 1px solid #f86c6b;
+      outline: 0 none;
+      background: #f86c6b;
+      color:#ffffff;
+    }
+}
+
+.ui-button.primary-button {
+   color: #20a8d8;
+   background-color: transparent;
+   background-image: none;
+   border-color: #20a8d8;
+   font-size: 1.33333333em;
+}
+
+.ui-datatable .ui-datatable-data>tr>td {
+  text-align: center;
+}
+
+
+.simple-subscription-form {
+  background: darken(#20a8d8, 10%);
+  color: $white;
+  padding: 2rem;
+  border-radius: 1px;
+
+  /*.button {
+    margin-bottom: 0;
+    border-radius: 0 1px 1px 0;
+  }*/
+}
+
+.created_at{
+  max-width: 25%;
+  margin-left: 75%;
+  color: #536c79;
+  text-align: right;
+}
+
+.input-group-text {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: .375rem .75rem;
+  margin-bottom: 0;
+  font-size: .875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #5c6873;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #f0f3f5;
+  border: 1px solid #e4e7ea;
+  border-radius: .25rem;
+}
+
+.input-group-prepend, .input-group-append {
+    display: -ms-flexbox;
+    display: flex;
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ui-growl {
+  top: 60px;
+}
+
+.billing_descr {
+  text-align: center;
+  padding: 3rem 0 3rem 0;
+  background-color: #f8f9fa!important;
+  font-size: 18px;
+  color: #20a8d8;
+  &.billing_price {
+    color: red;
+    font-size: 25px;
+    margin-top: -2rem;
+  }
+}
+
+.billing_label {
+  color: #20a8d8;
+  font-size: 15px;
+}
+
+.org_billing_button {
+  margin-bottom: 1rem;
+  margin-top: -1rem;
+}

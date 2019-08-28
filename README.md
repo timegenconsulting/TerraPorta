@@ -2,7 +2,7 @@
 
 ### Required:
 
-- [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-beta.32.3
+- [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-beta.32.3 (included in vendor file)
 - [Docker](https://www.docker.com/)
 - Django Back-End repo: [tp-django-site](https://github.com/GeometricEnergyCorporation/tp-django-site)
 

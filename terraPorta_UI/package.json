@@ -49,6 +49,7 @@
     "particles.js": "^2.0.0",
     "particlesjs": "^2.2.3",
     "popper": "^1.0.1",
+    "popper.js": "^1.12.3",
     "primeng": "^5.2.7",
     "prismjs": "^1.17.1",
     "quill": "^1.3.7",

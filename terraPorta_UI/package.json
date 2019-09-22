@@ -46,6 +46,7 @@
     "ngx-bootstrap": "2.0.2",
     "ngx-markdown": "^1.6.0",
     "ngx-stripe": "^0.8.2",
+    "particles.js": "^2.0.0",
     "popper": "^1.0.1",
     "primeng": "^5.2.7",
     "prismjs": "^1.17.1",

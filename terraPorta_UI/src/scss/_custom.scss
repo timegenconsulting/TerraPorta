@@ -55,10 +55,20 @@
 
 /*Text*/
 
+.forgot {
+  font-size:.75rem !important;
+}
+
 .btn-link {
   font-family:"Inter UI",sans-serif;
   font-style:italic bold;
   color:#0C9ED1;
+  font-weight:300;
+  text-align:right;
+}
+
+.btn {
+  min-width:340px;
 }
 
 h1 {

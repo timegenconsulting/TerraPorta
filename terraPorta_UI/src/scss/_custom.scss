@@ -5,11 +5,22 @@
   border-style:solid;
   border-width:1px;
   border-color:#0C9ED1;
+  margin-right:0px;
 }
 
 .login-card {
   max-width:400px;
 }
+
+.row {
+  flex-wrap:nowrap;
+}
+
+.col-md-8 {
+    -ms-flex: 0 0 0%;
+        flex: 0 0 0%;
+    max-width: 50%;
+  }
 
 /*Form*/
 

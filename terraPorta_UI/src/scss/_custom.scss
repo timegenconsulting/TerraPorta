@@ -33,6 +33,24 @@
   border:none !important;
   color:white !important;
   background-color:#97C5D3 !important;
+  padding:.90rem .90rem .90rem .90rem !important;
+}
+
+.standalone {
+  border-radius:0 5rem 5rem 0 !important;
+  border:none !important;
+  color:white !important;
+  background-color:#97C5D3 !important;
+}
+
+.form-control:focus {
+  box-shadow:none;
+}
+
+@media (min-width:600px) {
+  .input-group {
+    min-height:40px;
+  }
 }
 
 /*Text*/

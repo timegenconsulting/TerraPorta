@@ -1,12 +1,36 @@
 /*Button*/
 
-.btn-rounded {
-  border-radius:50px;
-  padding:5px 0px;
-  margin:5px 0px;
+.btn {
+  font-family:"Segoe UI",sans-serif;
+  font-weight:bold;
 }
 
+.btn-rounded {
+  border-radius:50px;
+  padding:10px 0px;
+  margin:10px 0px;
+}
 
+.btn-primary {
+  background-color:#046BB2;
+}
+
+.btn-primary:hover {
+  color:#046BB2;
+  background-color:transparent;
+  border-color:#046BB2;
+}
+
+.btn-outline-primary {
+  color:#5AAE96;
+  border-color:#5AAE96;
+}
+
+.btn-outline-primary:hover {
+  color:white;
+  background-color:#5AAE96;
+  border-color:#5AAE96;
+}
 
 /*Card*/
 

@@ -19,14 +19,14 @@
                   </div>
                   <input type="password" class="standalone form-control" placeholder="Password" [(ngModel)]='password' [ngModelOptions]="{standalone: true}">
                 </div>
-                <div class="row text-items-right">
-                  <button type="button" class="forgot btn btn-link px-0" [routerLink]="['/recovery_password']">Forgot Password?</button>
+                <div class="flex-row-reverse">
+                  <button type="button" class="forgot btn btn-link" [routerLink]="['/recovery_password']">Forgot Password?</button>
                 </div>
                 <div class="row align-items-center">
-                  <button type="submit" class="btn btn-primary px-4">Login</button>
+                  <button type="submit" class="btn btn-primary btn-rounded btn-block">LOGIN</button>
                 </div>
                 <div class="row align-items-center">
-                  <button type="button" class="btn btn-primary px-4" [routerLink]="['/register']">Register Now!</button>
+                  <button type="button" class="btn btn-outline-primary btn-rounded btn-block" [routerLink]="['/register']">REGISTER</button>
                 </div>
               </form>
             </div>

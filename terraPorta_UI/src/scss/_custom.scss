@@ -1,3 +1,13 @@
+/*Button*/
+
+.btn-rounded {
+  border-radius:50px;
+  padding:5px 0px;
+  margin:5px 0px;
+}
+
+
+
 /*Card*/
 
 .card {
@@ -12,10 +22,6 @@
   max-width:400px;
 }
 
-.row {
-  flex-wrap:nowrap;
-}
-
 .col-md-8 {
     -ms-flex: 0 0 0%;
         flex: 0 0 0%;
@@ -23,10 +29,6 @@
   }
 
 /*Form*/
-
-.input-group {
-  max-width:345px;
-}
 
 .input-group-text {
   border-radius:5rem 0 0 5rem !important;
@@ -61,14 +63,8 @@
 
 .btn-link {
   font-family:"Inter UI",sans-serif;
-  font-style:italic bold;
   color:#0C9ED1;
   font-weight:300;
-  text-align:right;
-}
-
-.btn {
-  min-width:340px;
 }
 
 h1 {

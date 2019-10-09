@@ -97,6 +97,20 @@ h1 {
   padding-bottom:24px;
 }
 
+.strike { 
+  color:#5AAE96;
+  width:100%; 
+  text-align:center; 
+  border-bottom: 2px solid #5AAE96; 
+  line-height:0.1em; 
+  margin:15px 0 5px; 
+} 
+
+.strike span { 
+  background:#fff; 
+  padding:0 10px; 
+}
+
 /*StartingSCSS*/
 
 .short_text {

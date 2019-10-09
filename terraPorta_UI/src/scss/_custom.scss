@@ -11,6 +11,11 @@
   margin:10px 0px;
 }
 
+.btn-form {
+  margin:10px 0px;
+  height:55px !important;
+}
+
 .btn-primary {
   background-color:#046BB2;
 }
@@ -33,7 +38,6 @@
 }
 
 .btn-login {
-  width:340px !important;
   height:55px !important;
 }
 
@@ -46,16 +50,6 @@
   border-color:#0C9ED1;
   margin-right:0px;
 }
-
-.login-card {
-  width:400px;
-}
-
-.col-md-8 {
-    -ms-flex: 0 0 0%;
-        flex: 0 0 0%;
-    max-width: 50%;
-  }
 
 /*Form*/
 
@@ -83,19 +77,10 @@
   box-shadow:none;
 }
 
-@media (min-width:600px) {
-  .input-group {
-    min-height:40px;
-  }
-}
-
 /*Text*/
 
-.forgot {
-  font-size:.75rem !important;
-}
-
 .btn-link {
+  font-size:.75rem !important;
   font-family:"Inter UI",sans-serif;
   color:#0C9ED1;
   font-weight:300;

@@ -1,31 +1,31 @@
 <div class="app flex-row align-items-center">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-auto">
       <p-messages [(value)]="msgs"></p-messages>
-          <div class="login-card card-round p-4">
+          <div class="card-round p-4">
             <div class="card-body">
               <h1>Welcome!</h1>
               <form name="loginForm" #loginForm="ngForm" (ngSubmit)="ValidateUser()" class="login-form">
-                <div class="input-group mb-3 btn-login">
+                <div class="input-group btn-form">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-envelope"></i></span>
                   </div>
                   <input type="text" class="standalone form-control" placeholder="Username" [(ngModel)]='username' [ngModelOptions]="{standalone: true}">
                 </div>
-                <div class="input-group mb-4 btn-login">
+                <div class="input-group btn-form">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-lock"></i></span>
                   </div>
                   <input type="password" class="standalone form-control" placeholder="Password" [(ngModel)]='password' [ngModelOptions]="{standalone: true}">
                 </div>
-                <div class="flex-row-reverse">
-                  <button type="button" class="forgot btn btn-link" [routerLink]="['/recovery_password']">Forgot Password?</button>
+                <div class="form-inline">
+                  <button type="button" class="btn btn-link" [routerLink]="['/recovery_password']">Forgot Password?</button>
                 </div>
-                <div class="row align-items-center">
+                <div class="form-inline">
                   <button type="submit" class="btn-login btn btn-primary btn-rounded btn-block">LOGIN</button>
                 </div>
-                <div class="row align-items-center">
+                <div class="form-inline">
                   <button type="button" class="btn-login btn btn-outline-primary btn-rounded btn-block" [routerLink]="['/register']">REGISTER</button>
                 </div>
               </form>

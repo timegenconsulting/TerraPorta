@@ -17,12 +17,13 @@
 }
 
 .btn-primary {
-  background-color:#046BB2;
+  background-color:#046BB2 !important;
+  border-color:#046BB2;
 }
 
 .btn-primary:hover {
   color:#046BB2;
-  background-color:transparent;
+  background-color:white !important;
   border-color:#046BB2;
 }
 

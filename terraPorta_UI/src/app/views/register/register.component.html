@@ -11,49 +11,49 @@
               
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="username" name='username' placeholder="Username*"
+                  <input type="text" class="form-control registration" id="username" name='username' placeholder="Username*"
                   [(ngModel)]="regData.username" #username="ngModel" required>
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="email" name='email' placeholder="Email*"
+                  <input type="text" class="form-control registration" id="email" name='email' placeholder="Email*"
                   [(ngModel)]="regData.email" #email="ngModel" required>
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="first_name" name='first_name' placeholder="First Name"
+                  <input type="text" class="form-control registration" id="first_name" name='first_name' placeholder="First Name"
                   [(ngModel)]="regData.first_name" #first_name="ngModel">
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="last_name" name='last_name' placeholder="Last Name"
+                  <input type="text" class="form-control registration" id="last_name" name='last_name' placeholder="Last Name"
                   [(ngModel)]="regData.last_name" #last_name="ngModel">
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <input type="password" class="form-control" id="password" name='password' placeholder="Password*"
+                  <input type="password" class="form-control registration" id="password" name='password' placeholder="Password*"
                   [(ngModel)]="regData.password" required>
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="password" class="form-control" id="r_password" name='r_password' placeholder="Repeat Password*"
+                  <input type="password" class="form-control registration" id="r_password" name='r_password' placeholder="Repeat Password*"
                   [(ngModel)]="regData.r_password" required>
                 </div>
               </div>
 
               <div class="form-group">
-                <input type="text" class="form-control" id="name" name='name' placeholder="Organization Name*"
+                <input type="text" class="form-control registration" id="name" name='name' placeholder="Organization Name*"
                 [(ngModel)]="regData.org.state" required>
               </div>
 
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="location" name='location' placeholder="Organization Location"
+                  <input type="text" class="form-control registration" id="location" name='location' placeholder="Organization Location"
                   [(ngModel)]="regData.org.location" #location='ngModel'>
                 </div>
                 <div class="form-group col-md-6">
-                  <input type="text" class="form-control" id="state" name='state' placeholder="Organization State"
+                  <input type="text" class="form-control registration" id="state" name='state' placeholder="Organization State"
                   [(ngModel)]="regData.org.state" #state="ngModel">
                 </div>
               </div>

@@ -20,7 +20,16 @@ If you have render issues try forcing the host with: "ng serve --host your.local
 
 ## Backend
 
-`cd tp-django-site` then run `docker-compose up`
+1. Navigate to project folder `cd tp-django-site`
+
+2. Run service postgres and tp_api `docker-compose up -d postgres tp_api`
+
+3. Open tp_api shell `docker exec -it tp_api /bin/bash`
+    * Migrate dtb `python manage.py migrate`
+    * Create super user `python manage.py createsuperuser`
+    * Exit shell `exit`
+
+7. Run all services `docker-compose up -d`
 
 ## Code scaffolding
 

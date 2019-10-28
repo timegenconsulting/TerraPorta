@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  api_url: "http://127.0.0.1:8000/api",
+  api_url: "http://35.182.231.66:8080/api",
   stripe_public_key: "pk_test_zdJN1dJ7hjSzKE2FFa4QzupK",
   iota_account: "nebojsa@bridgewaterlabs.com"
 };
